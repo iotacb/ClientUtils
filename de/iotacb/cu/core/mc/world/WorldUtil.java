@@ -1,5 +1,9 @@
 package de.iotacb.cu.core.mc.world;
 
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 
@@ -23,6 +27,15 @@ public class WorldUtil {
 	 */
 	public static final Entity getEntityByName(final String entityName) {
 		return MC.theWorld.loadedEntityList.stream().filter(entity -> entity.getName().equals(entityName)).findFirst().orElse(null);
+	}
+	
+	/**
+	 * Returns a list of entities which passed the filtering
+	 * @param predicate
+	 * @return
+	 */
+	public static final List<Entity> getFilteredEntityList(final Predicate<Entity> predicate) {
+		return MC.theWorld.loadedEntityList.stream().filter(predicate).collect(Collectors.toList());
 	}
 
 }

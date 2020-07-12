@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.util.AxisAlignedBB;
+
 public class RenderUtil {
 	
 	/**
@@ -55,6 +57,111 @@ public class RenderUtil {
 		}
 		GL11.glEnd();
 		stopRender();
+	}
+	
+	public static final void drawOutlinedBoundingBox(final AxisAlignedBB bb) {
+		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+		GL11.glBegin(GL11.GL_LINES);
+		{
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			
+		}
+		GL11.glEnd();
+		GL11.glDisable(GL11.GL_LINE_SMOOTH);
+	}
+	
+	public static final void drawFilledBoundingBox(final AxisAlignedBB bb) {
+		GL11.glBegin(GL11.GL_QUADS);
+		{
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.maxY, bb.minZ);
+			
+			GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
+			GL11.glVertex3d(bb.minX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.maxZ);
+			GL11.glVertex3d(bb.maxX, bb.minY, bb.minZ);
+		}
+		GL11.glEnd();
 	}
 	
 }
