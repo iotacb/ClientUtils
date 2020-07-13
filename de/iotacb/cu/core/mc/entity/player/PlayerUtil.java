@@ -14,12 +14,13 @@ import net.minecraft.item.ItemStack;
 public class PlayerUtil {
 	
 	private static final Minecraft MC = Minecraft.getMinecraft();
+	public static final PlayerUtil INSTANCE = new PlayerUtil();
 
 	/**
 	 * Returns true if the player is moving
 	 * @return
 	 */
-	public static final boolean isMoving() {
+	public final boolean isMoving() {
 		return MC.thePlayer.movementInput.moveForward != 0 || MC.thePlayer.movementInput.moveStrafe != 0;
 	}
 	
@@ -27,7 +28,7 @@ public class PlayerUtil {
 	 * Return the nearest entity to the player
 	 * @return
 	 */
-	public static final Entity getNearestEntity() {
+	public final Entity getNearestEntity() {
 		final List<Entity> entities = MC.theWorld.loadedEntityList.stream().filter(ent -> ent != MC.thePlayer).collect(Collectors.toList());
 		entities.sort(Comparator.comparingDouble(ent -> MC.thePlayer.getDistanceToEntity(ent)));
 		return entities.get(0);
@@ -39,7 +40,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public static final int findItemSlotInInventory(final int itemId, final boolean hotbar) {
+	public final int findItemSlotInInventory(final int itemId, final boolean hotbar) {
 		for (int i = hotbar ? 36 : 9; i < 45; i++) {
 			final ItemStack stack = MC.thePlayer.inventoryContainer.getSlot(i).getStack();
 			if (stack != null) {
@@ -56,7 +57,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public static final int findBlockSlotInInventory(final boolean hotbar) {
+	public final int findBlockSlotInInventory(final boolean hotbar) {
 		for (int i = hotbar ? 36 : 9; i < 45; i++) {
 			final ItemStack stack = MC.thePlayer.inventoryContainer.getSlot(i).getStack();
 			if (stack != null) {
@@ -74,7 +75,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public static boolean hasBlockInInventory(final boolean hotbar) {
+	public boolean hasBlockInInventory(final boolean hotbar) {
 		return findBlockSlotInInventory(hotbar) != -1;
 	}
 	
@@ -84,7 +85,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public static boolean hasItemInInventory(final int itemId, final boolean hotbar) {
+	public boolean hasItemInInventory(final int itemId, final boolean hotbar) {
 		return findItemSlotInInventory(itemId, hotbar) != -1;
 	}
 	

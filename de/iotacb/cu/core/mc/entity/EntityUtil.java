@@ -12,13 +12,14 @@ import net.minecraft.item.ItemStack;
 public class EntityUtil {
 
 	private static final Minecraft MC = Minecraft.getMinecraft();
+	public static final EntityUtil INSTANCE = new EntityUtil();
 	
 	/**
 	 * Returns the nearest entity to the given entity
 	 * @param entity
 	 * @return
 	 */
-	public static final Entity getNearestEntity(final Entity entity) {
+	public final Entity getNearestEntity(final Entity entity) {
 		final List<Entity> entities = MC.theWorld.loadedEntityList.stream().filter(ent -> ent != MC.thePlayer).collect(Collectors.toList());
 		entities.sort(Comparator.comparingDouble(ent -> entity.getDistanceToEntity(ent)));
 		return entities.get(0);
@@ -29,7 +30,7 @@ public class EntityUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static final ItemStack getItemHeldByEntity(final Entity entity) {
+	public final ItemStack getItemHeldByEntity(final Entity entity) {
 		if (entity instanceof EntityLivingBase) {
 			return ((EntityLivingBase) entity).getHeldItem();
 		}
