@@ -2,6 +2,7 @@ package de.iotacb.cu.core.string;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class StringUtil {
 
@@ -118,6 +119,15 @@ public class StringUtil {
 	public static final String joinList(final List<String> input) {
 		final String[] array = (String[]) input.toArray();
 		return joinArray(array);
+	}
+	
+	/**
+	 * Will return the given input without any Minecraft formatting codes
+	 * @param input
+	 * @return
+	 */
+	public static final String removeFormatting(final String input) {
+		return Pattern.compile("(?i)§[0-9A-FK-OR]").matcher(input).replaceAll("");
 	}
 	
 }

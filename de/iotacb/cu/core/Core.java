@@ -5,6 +5,6 @@ public class Core {
 	public static final Core INSTANCE = new Core();
 	
 	public final String AUTHOR = "iotacb";
-	public final String VERSION = "1.1 ALPHA";
+	public final String VERSION = "1.0 ALPHA";
 	
 }

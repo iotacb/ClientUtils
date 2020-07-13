@@ -1,13 +1,13 @@
 package de.iotacb.cu.core.mc.entity;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 
 public class EntityUtil {
 
@@ -23,5 +23,18 @@ public class EntityUtil {
 		entities.sort(Comparator.comparingDouble(ent -> entity.getDistanceToEntity(ent)));
 		return entities.get(0);
 	}
+	
+	/**
+	 * Returns the item held by the given entity
+	 * @param entity
+	 * @return
+	 */
+	public static final ItemStack getItemHeldByEntity(final Entity entity) {
+		if (entity instanceof EntityLivingBase) {
+			return ((EntityLivingBase) entity).getHeldItem();
+		}
+		return null;
+	}
+	
 	
 }

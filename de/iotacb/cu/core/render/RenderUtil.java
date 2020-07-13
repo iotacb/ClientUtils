@@ -59,7 +59,11 @@ public class RenderUtil {
 		stopRender();
 	}
 	
-	public static final void drawOutlinedBoundingBox(final AxisAlignedBB bb) {
+	/**
+	 * Sets up the vertices for drawing an outlined bounding box
+	 * @param bb
+	 */
+	public static final void makeOutlinedBoundingBox(final AxisAlignedBB bb) {
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		GL11.glBegin(GL11.GL_LINES);
 		{
@@ -98,6 +102,10 @@ public class RenderUtil {
 		GL11.glDisable(GL11.GL_LINE_SMOOTH);
 	}
 	
+	/**
+	 * Sets up the vertices for a filled bounding box
+	 * @param bb
+	 */
 	public static final void drawFilledBoundingBox(final AxisAlignedBB bb) {
 		GL11.glBegin(GL11.GL_QUADS);
 		{
