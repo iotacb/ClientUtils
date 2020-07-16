@@ -39,7 +39,7 @@ public class StringUtil {
 		final StringBuilder builder = new StringBuilder();
 		
 		for (int i = begin; i < end; i++) {
-			builder.append(input).append(seperator);
+			builder.append(input[i]).append(seperator);
 		}
 		
 		return builder.toString();

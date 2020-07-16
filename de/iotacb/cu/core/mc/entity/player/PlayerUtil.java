@@ -4,12 +4,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import de.iotacb.cu.core.mc.entity.EntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
 
 public class PlayerUtil {
 	
@@ -29,9 +31,7 @@ public class PlayerUtil {
 	 * @return
 	 */
 	public final Entity getNearestEntity() {
-		final List<Entity> entities = MC.theWorld.loadedEntityList.stream().filter(ent -> ent != MC.thePlayer).collect(Collectors.toList());
-		entities.sort(Comparator.comparingDouble(ent -> MC.thePlayer.getDistanceToEntity(ent)));
-		return entities.get(0);
+		return EntityUtil.INSTANCE.getNearestEntity(MC.thePlayer);
 	}
 	
 	/**
@@ -87,6 +87,14 @@ public class PlayerUtil {
 	 */
 	public boolean hasItemInInventory(final int itemId, final boolean hotbar) {
 		return findItemSlotInInventory(itemId, hotbar) != -1;
+	}
+	
+	/**
+	 * Adds a client side message to the chat
+	 * @param message
+	 */
+	public final void sendChatMessage(final String message) {
+		MC.thePlayer.addChatMessage(new ChatComponentText(message));
 	}
 	
 }

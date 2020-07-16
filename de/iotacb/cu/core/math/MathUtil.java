@@ -45,5 +45,48 @@ public class MathUtil {
 	public static final long clamp(final long current, final long min, final long max) {
 		return (current < min ? min : current > max ? max : current);
 	}
+
+	/**
+	 * Absolute and negative absolute of n
+	 * @param num
+	 * @return
+	 */
+	public static float abs(final float num) {
+		return (num < 0) ? 0 - num : num;
+	}
+
+	public static double abs(final double num) {
+		return (num < 0) ? 0 - num : num;
+	}
+
+	public static float nabs(final float num) {
+		return (abs(num) * -1.0F);
+	}
+
+	public static double nabs(final double num) {
+		return (abs(num) * -1.0);
+	}
+
+	/**
+	 * Sin function for circle
+	 * @param num
+	 * @param radius
+	 * @return
+	 */
+
+	public static double sinForCircle(float num, int radius) {
+		return Math.sin(num * Math.PI / 180) * radius;
+	}
+
+	/**
+	 * Cosine function for circle
+	 * @param num
+	 * @param radius
+	 * @return
+	 */
+
+	public static double cosForCircle(float num, int radius) {
+		return Math.cos(num * Math.PI / 180) * radius;
+	}
 	
 }
