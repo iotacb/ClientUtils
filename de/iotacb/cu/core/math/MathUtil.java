@@ -1,6 +1,8 @@
 package de.iotacb.cu.core.math;
 
 public class MathUtil {
+	
+	public static final MathUtil INSTANCE = new MathUtil();
 
 	/**
 	 * Will clamp the given value between a min and max value
@@ -9,7 +11,7 @@ public class MathUtil {
 	 * @param max
 	 * @return
 	 */
-	public static final int clamp(final int current, final int min, final int max) {
+	public final int clamp(final int current, final int min, final int max) {
 		return (current < min ? min : current > max ? max : current);
 	}
 	
@@ -20,7 +22,7 @@ public class MathUtil {
 	 * @param max
 	 * @return
 	 */
-	public static final double clamp(final double current, final double min, final double max) {
+	public final double clamp(final double current, final double min, final double max) {
 		return (current < min ? min : current > max ? max : current);
 	}
 	
@@ -31,7 +33,7 @@ public class MathUtil {
 	 * @param max
 	 * @return
 	 */
-	public static final float clamp(final float current, final float min, final float max) {
+	public final float clamp(final float current, final float min, final float max) {
 		return (current < min ? min : current > max ? max : current);
 	}
 	
@@ -42,51 +44,139 @@ public class MathUtil {
 	 * @param max
 	 * @return
 	 */
-	public static final long clamp(final long current, final long min, final long max) {
+	public final long clamp(final long current, final long min, final long max) {
 		return (current < min ? min : current > max ? max : current);
 	}
-
+	
 	/**
-	 * Absolute and negative absolute of n
-	 * @param num
+	 * Returns the absolute value of the given value
+	 * @param value
 	 * @return
 	 */
-	public static float abs(final float num) {
-		return (num < 0) ? 0 - num : num;
-	}
-
-	public static double abs(final double num) {
-		return (num < 0) ? 0 - num : num;
-	}
-
-	public static float nabs(final float num) {
-		return (abs(num) * -1.0F);
-	}
-
-	public static double nabs(final double num) {
-		return (abs(num) * -1.0);
-	}
-
-	/**
-	 * Sin function for circle
-	 * @param num
-	 * @param radius
-	 * @return
-	 */
-
-	public static double sinForCircle(float num, int radius) {
-		return Math.sin(num * Math.PI / 180) * radius;
-	}
-
-	/**
-	 * Cosine function for circle
-	 * @param num
-	 * @param radius
-	 * @return
-	 */
-
-	public static double cosForCircle(float num, int radius) {
-		return Math.cos(num * Math.PI / 180) * radius;
+	public final int abs(final int value) {
+		return (value < 0) ? value * -1 : value;
 	}
 	
+	/**
+	 * Returns the absolute value of the given value
+	 * @param value
+	 * @return
+	 */
+	public final float abs(final float value) {
+		return (value < 0) ? value * -1 : value;
+	}
+	
+	/**
+	 * Returns the absolute value of the given value
+	 * @param value
+	 * @return
+	 */
+	public final double abs(final double value) {
+		return (value < 0) ? value * -1 : value;
+	}
+	
+	/**
+	 * Returns the absolute value of the given value
+	 * @param value
+	 * @return
+	 */
+	public final long abs(final long value) {
+		return (value < 0) ? value * -1 : value;
+	}
+	
+	/**
+	 * Returns the negative absolute value of the given value
+	 * @param value
+	 * @return
+	 */
+	public final int nabs(final int value) {
+		return abs(value) * -1;
+	}
+	
+	/**
+	 * Returns the negative absolute value of the given value
+	 * @param value
+	 * @return
+	 */
+	public final float nabs(final float value) {
+		return abs(value) * -1;
+	}
+	
+	/**
+	 * Returns the negative absolute value of the given value
+	 * @param value
+	 * @return
+	 */
+	public final double nabs(final double value) {
+		return abs(value) * -1;
+	}
+	
+	/**
+	 * Returns the negative absolute value of the given value
+	 * @param value
+	 * @return
+	 */
+	public final long nabs(final long value) {
+		return abs(value) * -1;
+	}
+	
+	/**
+	 * Returns the percentage of the given values (0-1)
+	 * @param current
+	 * @param max
+	 * @return
+	 */
+	public final float toPercentage(final int current, final int max) {
+		return (current / max);
+	}
+	
+	/**
+	 * Returns the percentage of the given values (0-1)
+	 * @param current
+	 * @param max
+	 * @return
+	 */
+	public final float toPercentage(final float current, final float max) {
+		return (current / max);
+	}
+	
+	/**
+	 * Returns the percentage of the given values (0-1)
+	 * @param current
+	 * @param max
+	 * @return
+	 */
+	public final double toPercentage(final double current, final double max) {
+		return (current / max);
+	}
+	
+	/**
+	 * Returns the percentage of the given values (0-1)
+	 * @param current
+	 * @param max
+	 * @return
+	 */
+	public final long toPercentage(final long current, final long max) {
+		return (current / max);
+	}
+	
+	/**
+	 * Returns the interpolated given current value
+	 * @param last
+	 * @param current
+	 * @return
+	 */
+	public final float interpolate(final float last, final float current) {
+		return last + (current - last);
+	}
+
+	/**
+	 * Returns the interpolated given current value
+	 * @param last
+	 * @param current
+	 * @return
+	 */
+	public final double interpolate(final double last, final double current) {
+		return last + (current - last);
+	}
 }

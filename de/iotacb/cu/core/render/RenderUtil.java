@@ -108,7 +108,7 @@ public class RenderUtil {
         stopRender();
     }
 
-    final void drawCircle(double xPos, double yPos, double radius) {
+    public final void drawCircle(double xPos, double yPos, double radius) {
         double theta = (2 * Math.PI / 360.0);
         double tangetial_factor = Math.tan(theta);//calculate the tangential factor
         double radial_factor = Math.cos(theta);//calculate the radial factor
@@ -185,7 +185,7 @@ public class RenderUtil {
      *
      * @param bb
      */
-    public final void drawFilledBoundingBox(final AxisAlignedBB bb) {
+    public final void makeFilledBoundingBox(final AxisAlignedBB bb) {
         GL11.glBegin(GL11.GL_QUADS);
         {
             GL11.glVertex3d(bb.minX, bb.minY, bb.minZ);
