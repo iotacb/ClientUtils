@@ -68,14 +68,14 @@ public abstract class FramebufferShader extends Shader {
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, framebuffer.framebufferTexture);
 		GL11.glBegin(GL11.GL_QUADS);
 		{
-			GL11.glTexCoord2d(0, 1);
-			GL11.glVertex2d(0, 0);
-			GL11.glTexCoord2d(0, 0);
-			GL11.glVertex2d(0, scaledResolution.getScaledHeight());
-			GL11.glTexCoord2d(1, 0);
-			GL11.glVertex2d(scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight());
-			GL11.glTexCoord2d(1, 1);
-			GL11.glVertex2d(scaledResolution.getScaledWidth(), 0);
+			GL11.glTexCoord2f(0, 1);
+			GL11.glVertex2f(0, 0);
+			GL11.glTexCoord2f(0, 0);
+			GL11.glVertex2f(0, scaledResolution.getScaledHeight());
+			GL11.glTexCoord2f(1, 0);
+			GL11.glVertex2f(scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight());
+			GL11.glTexCoord2f(1, 1);
+			GL11.glVertex2f(scaledResolution.getScaledWidth(), 0);
 		}
 		GL11.glEnd();
 		GL20.glUseProgram(0);

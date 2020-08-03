@@ -26,6 +26,10 @@ public class PlayerUtil {
 		return MC.thePlayer.movementInput.moveForward != 0 || MC.thePlayer.movementInput.moveStrafe != 0;
 	}
 	
+	public final double getSpeed(final boolean yMotion) {
+		return Math.sqrt(MC.thePlayer.motionX * MC.thePlayer.motionX + (yMotion ? MC.thePlayer.motionY * MC.thePlayer.motionY : 0) + MC.thePlayer.motionZ * MC.thePlayer.motionZ);
+	}
+	
 	/**
 	 * Return the nearest entity to the player
 	 * @return

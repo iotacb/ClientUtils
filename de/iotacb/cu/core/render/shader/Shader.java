@@ -76,7 +76,7 @@ public abstract class Shader {
 		return uniforms;
 	}
 	
-	public int getUniform(String uniformName) {
+	public int getUniform(final String uniformName) {
 		return getUniforms().get(uniformName);
 	}
 	
@@ -84,7 +84,7 @@ public abstract class Shader {
 		return MC;
 	}
 	
-	public void addUniform(String uniformName) {
+	public void addUniform(final String uniformName) {
 		getUniforms().put(uniformName, GL20.glGetUniformLocation(getShaderProgramId(), uniformName));
 	}
 	
