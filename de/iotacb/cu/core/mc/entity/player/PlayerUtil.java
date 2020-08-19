@@ -16,26 +16,75 @@ import net.minecraft.util.ChatComponentText;
 public class PlayerUtil {
 	
 	private static final Minecraft MC = Minecraft.getMinecraft();
-	public static final PlayerUtil INSTANCE = new PlayerUtil();
 
 	/**
 	 * Returns true if the player is moving
 	 * @return
 	 */
-	public final boolean isMoving() {
+	public static final boolean isMoving() {
 		return MC.thePlayer.movementInput.moveForward != 0 || MC.thePlayer.movementInput.moveStrafe != 0;
 	}
 	
-	public final double getSpeed(final boolean yMotion) {
-		return Math.sqrt(MC.thePlayer.motionX * MC.thePlayer.motionX + (yMotion ? MC.thePlayer.motionY * MC.thePlayer.motionY : 0) + MC.thePlayer.motionZ * MC.thePlayer.motionZ);
+	/**
+	 * Returns the speed of the player
+	 * @param yMotion
+	 * @return
+	 */
+	public static final double getSpeed(final boolean yMotion) {
+		return EntityUtil.getSpeed(MC.thePlayer, yMotion);
 	}
+	
+	/**
+	 * Set the speed of the player
+	 * @param speed
+	 */
+	public static final void setSpeed(final double speed) {
+		float yaw = getYaw();
+		
+		final double x = -Math.sin(yaw);
+		final double z = Math.cos(yaw);
+		
+		MC.thePlayer.motionX = x * speed;
+		MC.thePlayer.motionZ = z * speed;
+	}
+	
+	/**
+	 * Get the yaw of the player, will pay attention to movekey presses
+	 * @return
+	 */
+    public static final float getYaw() {
+        float rotationYaw = MC.thePlayer.rotationYaw;
+        float forward = 1F;
+
+        final double moveForward = MC.thePlayer.movementInput.moveForward;
+        final double moveStrafing = MC.thePlayer.movementInput.moveStrafe;
+        final float yaw = MC.thePlayer.rotationYaw;
+        
+        if (moveForward < 0) {
+        	rotationYaw += 180F;
+        }
+
+        if (moveForward < 0) {
+        	forward = -0.5F;
+        } else if(moveForward > 0) {
+        	forward = 0.5F;
+        }
+
+        if (moveStrafing > 0) {
+        	rotationYaw -= 90F * forward;
+        } else if(moveStrafing < 0) {
+        	rotationYaw += 90F * forward;
+        }
+
+        return (float) Math.toRadians(rotationYaw);
+    }
 	
 	/**
 	 * Return the nearest entity to the player
 	 * @return
 	 */
-	public final Entity getNearestEntity() {
-		return EntityUtil.INSTANCE.getNearestEntity(MC.thePlayer);
+	public static final Entity getNearestEntity() {
+		return EntityUtil.getNearestEntity(MC.thePlayer);
 	}
 	
 	/**
@@ -44,7 +93,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public final int findItemSlotInInventory(final int itemId, final boolean hotbar) {
+	public static final int findItemSlotInInventory(final int itemId, final boolean hotbar) {
 		for (int i = hotbar ? 36 : 9; i < 45; i++) {
 			final ItemStack stack = MC.thePlayer.inventoryContainer.getSlot(i).getStack();
 			if (stack != null) {
@@ -61,7 +110,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public final int findBlockSlotInInventory(final boolean hotbar) {
+	public static final int findBlockSlotInInventory(final boolean hotbar) {
 		for (int i = hotbar ? 36 : 9; i < 45; i++) {
 			final ItemStack stack = MC.thePlayer.inventoryContainer.getSlot(i).getStack();
 			if (stack != null) {
@@ -79,7 +128,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public boolean hasBlockInInventory(final boolean hotbar) {
+	public static boolean hasBlockInInventory(final boolean hotbar) {
 		return findBlockSlotInInventory(hotbar) != -1;
 	}
 	
@@ -89,7 +138,7 @@ public class PlayerUtil {
 	 * @param hotbar
 	 * @return
 	 */
-	public boolean hasItemInInventory(final int itemId, final boolean hotbar) {
+	public static boolean hasItemInInventory(final int itemId, final boolean hotbar) {
 		return findItemSlotInInventory(itemId, hotbar) != -1;
 	}
 	
@@ -97,8 +146,10 @@ public class PlayerUtil {
 	 * Adds a client side message to the chat
 	 * @param message
 	 */
-	public final void sendChatMessage(final String message) {
+	public static final void addChatMessage(final String message) {
 		MC.thePlayer.addChatMessage(new ChatComponentText(message));
 	}
-	
+
+
+
 }

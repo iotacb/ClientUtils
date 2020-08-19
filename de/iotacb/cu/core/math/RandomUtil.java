@@ -1,5 +1,6 @@
 package de.iotacb.cu.core.math;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtil {

@@ -21,6 +21,11 @@ public abstract class Shader {
 	
 	private static final Minecraft MC = Minecraft.getMinecraft();
 	
+	/**
+	 * http://wiki.lwjgl.org/wiki/GLSL_Shaders_with_LWJGL.html
+	 * @param fragementShaderName
+	 */
+	
 	public Shader(final String fragementShaderName) {
 		try {
 			final InputStream vertex = getClass().getResourceAsStream("/assets/minecraft/cu/shaders/base.vert");
@@ -42,7 +47,11 @@ public abstract class Shader {
 			ARBShaderObjects.glLinkProgramARB(shaderProgramId);
 			ARBShaderObjects.glValidateProgramARB(shaderProgramId);
 			
-			System.out.println("Loaded shader!");
+			uniforms = new HashMap<>();
+			initUniforms();
+			
+			System.out.println("Successfully loaded the shader: " + fragementShaderName + "!");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,46 +60,38 @@ public abstract class Shader {
 	public abstract void initUniforms();
 	public abstract void updateUniforms();
 	
-	public void startShader() {
-		GL11.glPushMatrix();
-		GL20.glUseProgram(shaderProgramId);
-		
-		if (getUniforms() == null) {
-			uniforms = new HashMap<>();
-			initUniforms();
-		}
-		
+	public final void useShader() {
+		GL20.glUseProgram(shaderProgramId); // Start using the shader
 		updateUniforms();
 	}
 	
-	public void stopShader() {
-		GL20.glUseProgram(0);
-		GL11.glPopMatrix();
+	public final void releaseShader() {
+		GL20.glUseProgram(0); // Release the shader
 	}
 	
-	public int getShaderProgramId() {
+	public final int getShaderProgramId() {
 		return shaderProgramId;
 	}
 	
-	public Map<String, Integer> getUniforms() {
+	public final Map<String, Integer> getUniforms() {
 		return uniforms;
 	}
 	
-	public int getUniform(final String uniformName) {
+	public final int getUniform(final String uniformName) {
 		return getUniforms().get(uniformName);
 	}
 	
-	public static Minecraft getMc() {
+	public final Minecraft getMc() {
 		return MC;
 	}
 	
-	public void addUniform(final String uniformName) {
+	public final void addUniform(final String uniformName) {
 		getUniforms().put(uniformName, GL20.glGetUniformLocation(getShaderProgramId(), uniformName));
 	}
 	
 	
 	private int createShaderId(final String shaderCode, final int shaderType) {
-		int shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
+		final int shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
 		
 		if (shader == 0) return 0;
 		

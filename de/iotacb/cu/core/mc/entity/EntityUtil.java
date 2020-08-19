@@ -21,7 +21,6 @@ import de.iotacb.cu.core.string.StringUtil;
 public class EntityUtil {
 
     private static final Minecraft MC = Minecraft.getMinecraft();
-    public static final EntityUtil INSTANCE = new EntityUtil();
 
     /**
      * Returns the nearest entity to the given entity
@@ -29,9 +28,9 @@ public class EntityUtil {
      * @param entity
      * @return
      */
-    public final Entity getNearestEntity(final Entity entity) {
-        return MC.theWorld.loadedEntityList.stream().filter(entity1 ->
-                entity1 != entity).min(Comparator.comparingDouble(entity::getDistanceToEntity)).orElse(null);
+    public static final Entity getNearestEntity(final Entity entity) {
+        return MC.theWorld.loadedEntityList.stream().filter(entity2 ->
+                entity2 != entity).min(Comparator.comparingDouble(entity::getDistanceToEntity)).orElse(null);
     }
 
     /**
@@ -40,7 +39,7 @@ public class EntityUtil {
      * @param entity
      * @return
      */
-    public final ItemStack getItemHeldByEntity(final Entity entity) {
+    public static final ItemStack getItemHeldByEntity(final Entity entity) {
         if (entity instanceof EntityLivingBase) {
             return ((EntityLivingBase) entity).getHeldItem();
         }
@@ -52,7 +51,7 @@ public class EntityUtil {
      * @param entity
      * @return
      */
-    public final boolean isPlayer(final Entity entity) {
+    public static final boolean isPlayer(final Entity entity) {
     	return entity instanceof EntityPlayer;
     }
     
@@ -61,7 +60,7 @@ public class EntityUtil {
      * @param entity
      * @return
      */
-    public final boolean isAnimal(final Entity entity) {
+    public static final boolean isAnimal(final Entity entity) {
     	return (entity instanceof EntityAnimal || entity instanceof EntitySquid || entity instanceof EntityBat);
     }
     
@@ -70,7 +69,7 @@ public class EntityUtil {
      * @param entity
      * @return
      */
-    public final boolean isMob(final Entity entity) {
+    public static final boolean isMob(final Entity entity) {
     	return (entity instanceof EntityMob || entity instanceof EntityVillager || entity instanceof EntitySlime || entity instanceof EntityDragon || entity instanceof EntityGhast);
     }
     
@@ -79,9 +78,18 @@ public class EntityUtil {
      * @param entity
      * @return
      */
-    public final String getName(final Entity entity) {
+    public static final String getName(final Entity entity) {
     	return StringUtil.removeFormatting(entity.getName());
     }
+    
+    /**
+     * Returns the speed of the entity
+     * @param yMotion Use yMotion of the entity for the calculation
+     * @return
+     */
+	public static final double getSpeed(final Entity entity, final boolean yMotion) {
+		return Math.sqrt(MC.thePlayer.motionX * MC.thePlayer.motionX + (yMotion ? MC.thePlayer.motionY * MC.thePlayer.motionY : 0) + MC.thePlayer.motionZ * MC.thePlayer.motionZ);
+	}
 
 
 }

@@ -12,6 +12,12 @@ import net.minecraft.client.shader.Framebuffer;
 
 public abstract class FramebufferShader extends Shader {
 
+	/**
+	 * From LiquidBounce: ADD LINK TO REPO
+	 * Same for the Vertex Shader.
+	 * @param fragmentShaderName
+	 */
+	
 	public FramebufferShader(final String fragmentShaderName) {
 		super(fragmentShaderName);
 	}
@@ -33,7 +39,6 @@ public abstract class FramebufferShader extends Shader {
 	}
 	
 	public final void clearShader(final Color color) {
-		
 		colorArray[0] = color.getRed() / 255.0F;
 		colorArray[1] = color.getGreen() / 255.0F;
 		colorArray[2] = color.getBlue() / 255.0F;
@@ -45,10 +50,10 @@ public abstract class FramebufferShader extends Shader {
 		getMc().entityRenderer.disableLightmap();
 		RenderHelper.disableStandardItemLighting();
 		
-		startShader();
+		useShader();
 		getMc().entityRenderer.setupOverlayRendering();
 		drawFrameBuffer();
-		stopShader();
+		releaseShader();
 		
 		getMc().entityRenderer.disableLightmap();
 		
@@ -58,7 +63,6 @@ public abstract class FramebufferShader extends Shader {
 	
 	public final void makeFrameBuffer() {
 		if (framebuffer != null) framebuffer.deleteFramebuffer();
-		
 		framebuffer = new Framebuffer(getMc().displayWidth, getMc().displayHeight, true);
 	}
 	
@@ -81,7 +85,7 @@ public abstract class FramebufferShader extends Shader {
 		GL20.glUseProgram(0);
 	}
 	
-	public float[] getColorArray() {
+	public final float[] getColorArray() {
 		return colorArray;
 	}
 	

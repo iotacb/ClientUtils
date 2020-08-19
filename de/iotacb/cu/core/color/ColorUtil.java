@@ -2,6 +2,8 @@ package de.iotacb.cu.core.color;
 
 import java.awt.Color;
 
+import org.lwjgl.Sys;
+
 import de.iotacb.cu.core.math.MathUtil;
 
 public class ColorUtil {
@@ -57,10 +59,22 @@ public class ColorUtil {
 	 * @param value
 	 * @return
 	 */
-	public static final Color getColorOfHue(final int value) {
+	public static final Color getRGBOfHue(final int value) {
         final float hue = (1.0F - value / 360.0F);
         final int color = Color.HSBtoRGB(hue, 1.0F, 1.0F);
         return new Color(color);
+	}
+	
+	/**
+	 * Returns a animated rainbow color
+	 * @param offset
+	 * @param speed
+	 * @param saturation
+	 * @return
+	 */
+	public static final Color getRainbow(final int offset, int secondsForCycle, final float saturation) {
+		final float hue = ((System.currentTimeMillis() + offset) % (secondsForCycle * 1000F)) / (secondsForCycle * 1000F);
+		return Color.getHSBColor(hue, saturation, 1);
 	}
 
 }
